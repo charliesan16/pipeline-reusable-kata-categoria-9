@@ -1,0 +1,1 @@
+# pipeline-reusable-Kata-Categoria-IX
