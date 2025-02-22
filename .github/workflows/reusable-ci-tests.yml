@@ -49,10 +49,10 @@ jobs:
         if: ${{ inputs.command-install != '' }}
         run: |
           echo "📌 Installing dependencies using: ${{ inputs.command-install }}"
-          eval "${{ inputs.command-install }}" | exit 1
+          eval "${{ inputs.command-install }}" || exit 1
 
       - name: 🧪 Execute Automated Tests
         if: ${{ inputs.command-execute != '' }}
         run: |
           echo "🚀 Running tests using: ${{ inputs.command-execute }}"
-          eval "${{ inputs.command-execute }}" | exit 1
+          eval "${{ inputs.command-execute }}" || exit 1
