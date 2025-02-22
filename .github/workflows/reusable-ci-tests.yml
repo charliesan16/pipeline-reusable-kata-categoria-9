@@ -1,28 +1,29 @@
-name: Automated Test Execution
+name: 🚀 Automated Test Execution
 
 on:
   workflow_call:
     inputs:
       repository:
-        description: "GitHub repository name"
+        description: "📂 GitHub repository name where tests will be executed"
         required: true
         type: string
       java-version:
-        description: "Java version to use"
+        description: "☕ Java version to use"
         required: false
         default: "11"
         type: string
       command-install:
-        description: "Command to install project dependencies"
+        description: "📦 Command to install project dependencies"
         required: true
         type: string
       command-execute:
-        description: "Command to run the automated tests"
+        description: "🧪 Command to run automated tests"
         required: true
         type: string
 
 jobs:
-  run-automated-tests:
+  run-tests:
+    name: 🏗️ Run Automated Tests
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -30,14 +31,14 @@ jobs:
         working-directory: ${{ inputs.repository }}
 
     steps:
-      - name: 📥 Checkout Repository
+      - name: 📥 Clone Repository
         uses: actions/checkout@v4
         with:
           repository: charliesan16/${{ inputs.repository }}
           persist-credentials: false
           path: ./${{ inputs.repository }}
 
-      - name: ☕ Set Up Java
+      - name: ☕ Set Up Java ${{ inputs.java-version }}
         uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.java-version }}
@@ -45,13 +46,13 @@ jobs:
           distribution: "adopt"
 
       - name: 📦 Install Dependencies
+        if: ${{ inputs.command-install != '' }}
         run: |
-          set -e
-          echo "Installing dependencies..."
-          bash -c "${{ inputs.command-install }}"
+          echo "📌 Installing dependencies using: ${{ inputs.command-install }}"
+          eval "${{ inputs.command-install }}"
 
-      - name: 🚀 Run Automated Tests
+      - name: 🧪 Execute Automated Tests
+        if: ${{ inputs.command-execute != '' }}
         run: |
-          set -e
-          echo "Running automated tests..."
-          bash -c "${{ inputs.command-execute }}"
+          echo "🚀 Running tests using: ${{ inputs.command-execute }}"
+          eval "${{ inputs.command-execute }}"
