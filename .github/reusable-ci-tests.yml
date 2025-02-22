@@ -1,0 +1,57 @@
+name: Automated Test Execution
+
+on:
+  workflow_call:
+    inputs:
+      repository:
+        description: "GitHub repository name"
+        required: true
+        type: string
+      java-version:
+        description: "Java version to use"
+        required: false
+        default: "11"
+        type: string
+      command-install:
+        description: "Command to install project dependencies"
+        required: true
+        type: string
+      command-execute:
+        description: "Command to run the automated tests"
+        required: true
+        type: string
+
+jobs:
+  run-automated-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.repository }}
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          repository: charliesan16/${{ inputs.repository }}
+          persist-credentials: false
+          path: ./${{ inputs.repository }}
+
+      - name: ☕ Set Up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ inputs.java-version }}
+          architecture: x64
+          distribution: "adopt"
+
+      - name: 📦 Install Dependencies
+        run: |
+          set -e
+          echo "Installing dependencies..."
+          bash -c "${{ inputs.command-install }}"
+
+      - name: 🚀 Run Automated Tests
+        run: |
+          set -e
+          echo "Running automated tests..."
+          bash -c "${{ inputs.command-execute }}"
