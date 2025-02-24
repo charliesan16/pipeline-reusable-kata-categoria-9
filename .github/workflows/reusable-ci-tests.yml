@@ -20,6 +20,14 @@ on:
         description: "🧪 Command to run automated tests"
         required: true
         type: string
+      browserstack-build-name:
+        type: string
+        description: 'Indique el nombre de la build a crear(Nombre producto_Integration) o ejecutar que se encuentra en Browserstack'
+        required: true
+      browserstack-project-name:
+        type: string
+        description: 'Indique el nombre del proyecto o producto a crear o ejecutar en Browserstack'
+        required: true
 
     secrets:
       BROWSERSTACK_KEY:
@@ -41,6 +49,8 @@ jobs:
         with:
           username: ${{ secrets.BROWSERSTACK_USER }}
           access-key: ${{ secrets.BROWSERSTACK_KEY }}
+          build-name: ${{ inputs.browserstack-build-name }}
+          project-name: ${{ inputs.browserstack-project-name }}
       - name: 📥 Clone Repository
         uses: actions/checkout@v4
         with:
