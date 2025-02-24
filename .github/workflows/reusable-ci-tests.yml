@@ -36,6 +36,11 @@ jobs:
         working-directory: ${{ inputs.repository }}
 
     steps:
+      - name: Credential Browserstack
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username: ${{ secrets.BROWSERSTACK_USER }}
+          access-key: ${{ secrets.BROWSERSTACK_KEY }}
       - name: 📥 Clone Repository
         uses: actions/checkout@v4
         with:
