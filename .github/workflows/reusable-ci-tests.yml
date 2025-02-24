@@ -21,6 +21,11 @@ on:
         required: true
         type: string
 
+    secrets:
+      BROWSERSTACK_KEY:
+        required: true
+      BROWSERSTACK_USER:
+        required: true
 jobs:
   run-tests:
     name: 🏗️ Run Automated Tests
