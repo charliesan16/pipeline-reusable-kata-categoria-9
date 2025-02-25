@@ -48,6 +48,9 @@ jobs:
 | `java-version`    | ❌ No       | Versión de Java a utilizar (por defecto: `11`). |
 | `command-install` | ✅ Sí       | Comando para instalar dependencias. |
 | `command-execute` | ✅ Sí       | Comando para ejecutar las pruebas. |
+| `browserstack-build-name` | ✅ Sí       | Build Name browserstack |
+| `browserstack-project-name` | ✅ Sí       | Project Name browserstack |
+
 
 ## ✅ Requisitos Previos
 - El repositorio **que llama al pipeline debe ser público**.
